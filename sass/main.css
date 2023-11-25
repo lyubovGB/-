@@ -58,6 +58,8 @@
   #app {
     width: 100%;
     margin: auto;
+    display: flex;
+    flex-flow: column wrap;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
     background-color: rgb(249, 248, 247);
     text-align: center;
@@ -80,17 +82,19 @@
     font-size: 15pt;
   }
   #app input[type=text] {
-    margin: 0;
-    width: 40%;
-    height: 20px;
+    margin: auto;
+    width: 60%;
+    height: 50px;
     font-size: 16pt;
   }
   #app select, #app input[type=number], #app input[type=date] {
-    width: 30%;
+    margin: auto;
+    width: 60%;
+    height: 50px;
     font-size: 16pt;
   }
   #app multiple {
-    height: 30px;
+    height: 50px;
   }
   #app .output {
     font-size: 1rem;
@@ -105,9 +109,12 @@
     color: rgb(6, 6, 6);
   }
   #app button {
-    width: 30%;
+    margin: auto;
+    width: 60%;
+    height: 50px;
+    font-size: 16pt;
     background-color: rgb(101, 235, 235);
-    font-size: 10pt;
+    font-size: 20pt;
   }
 }
 @media (max-width: 650px) {
