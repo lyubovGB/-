@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <title>Карточка нового пациента</title>
+    <link rel='stylesheet' type='text/css' href='sass/main.css'>
+</head>
+<body>
+    
+    <div id="app" > 
+        
+       
+        <div id="modal" v-if="!showModal">    
+            <div id="popUp" >
+                <h4><u>Пациент успешно добавлен</u></h4>
+                {{this.lastName}} {{this.firstName}}
+                <br>
+                {{this.saveDate()}} года рождения
+                <br> 
+                Паспорт от:  {{this.saveDatePassport()}}
+                <br>
+                Город: {{this.city}}
+                <br>
+                Номер телефона:  7{{this.phone}}
+                <br>
+                <b>Отнесен в группу клиентов:</b>  {{selGroup}}
+                <br>
+
+                <button @click="cleanForm">Закончить</button>
+            </div>
+        </div>
+        
+        <form action=""
+        method="post">
+            <span><u>Пациент:</u></span> 
+            <br>
+            <label>Фамилия*</label>
+            <input type="text" 
+            required
+            id="1"
+            @input="saveLastName" 
+            v-model="lastName"
+            @keydown.enter = "showModalWindow"
+            > 
+            <div class='output'>{{status}}</div>
+            <br>
+            <label>Имя*</label>
+            <input type="text"
+            required
+            id="2"
+            @input="saveFirstName" 
+            v-model="firstName"
+            @keydown.enter = "showModalWindow"
+            > 
+            <div class='output'>{{statusA}}</div>
+            <br>
+            <label>Отчество</label>
+            <input type="text"
+            @input="saveMiddleName" 
+            v-model="middleName"
+            > 
+            <div class='output'>{{statusB}}</div>
+            <br>
+
+            <label>Дата рождения*</label>
+            <input type="date"
+            id="birth"
+            required
+
+            @input="saveDate"
+            v-model="dateBirth"
+            
+            > 
+            <div class='output'>{{statusM}}</div>
+            <br>
+            <label>Номер телефона*</label>
+            7<input type="number"
+            value="7"
+            @input="savePhone"
+            v-model="phone"
+            required
+            > 
+            <div class='output'>{{statusN}}</div>
+            <br>
+            <label>Пол:</label>
+            <input type="radio" 
+            id="men" 
+            name="sex" 
+            @input="menCheck" />
+            <label for="men">Муж.</label>
+            
+            <input type="radio" 
+            id="female" 
+            name="sex" 
+            @input="femaleCheck" />
+            <label for="female">Жен</label>
+            <div >{{statusG}}</div>
+            <br>
+            <label>Группа клиентов*</label>
+            <select name="Група клиентов" 
+            size="3" 
+            
+            required
+            v-model="selGroup">
+                <option v-for="one in group" :value="one.name">{{one.name}}</option>
+
+            </select> 
+            <div class='output sel' >{{selGroup}}</div>
+            
+            <br>
+            <label>Лечащий врач</label>
+            <select name="Лечащий врач" id=""
+            v-model="selDoctor">
+                <option v-for="doctor in doctors " :value="doctor.name">{{doctor.name}}</option>
+
+            </select> 
+            <div class='output sel'>{{selDoctor}}</div>
+            <br>
+            <input type="checkbox" 
+            id="dontSendSMS" 
+            name="sms" 
+            v-model="sendSMS"
+            @input="dontSendSMS"
+            />
+            <label for="dontSendSMS">  Не отправлять сообщения</label> <div class='output'>{{statusL}}</div>
+            <br>
+            <span><u>Адрес:</u></span>
+            <br>
+            <label>Индекс</label>
+            <input type="number"
+            @input="indexSave"
+            v-model="index"><div class='output'>{{statusI}}</div>
+            <br>
+            <label>Страна</label>
+            <input type="text"
+            @input="countrySave"
+            v-model="country"><div class='output'>{{statusC}}</div>
+            <br>
+            <label>Область</label>
+            <input type="text"
+            @input="regionSave"
+            v-model="region"><div class='output'>{{statusR}}</div>
+            <br>
+            <label>Город*</label>
+            <input type="text"
+            required
+            @input="citySave"
+            v-model="city"><div class='output'>{{statusP}}</div>
+            <br>
+            <label>Улица</label>
+            <input type="text"
+            @input="streetSave"
+            v-model="street"><div class='output'>{{statusX}}</div>
+            <br>
+            <label>Дом</label>
+            <input type="number"
+            @input="houseSave"
+            v-model="house"><div class='output'>{{statusH}}</div>
+            <br>
+            <span><u>Паспортные данные:</u></span>
+            <br>
+            <label>Тип документа</label>
+            <select name="typeDocument" id=""
+            v-model="selDocument">
+                <option v-for="document in documents " :value="document.name">{{document.name}}</option>
+
+            </select> 
+            <div class='output sel'>{{selDocument}}</div>
+            <br>
+            <label>Серия</label>
+            <input type="number"
+            v-model="series"
+            @input="seriesSave"
+            >
+            <div class='output'>{{statusE}}</div>
+            <br>
+            <label>Номер</label>
+            <input type="number"
+            v-model="number"
+            @input="numberSave"
+            >
+            <div class='output'>{{statusW}}</div>
+            <br>
+            <label>Кем выдан</label>
+            <input type="text"
+            v-model="whoIssied"
+            @input="whoIssiedSave"
+            >
+            <div class='output'>{{statusQ}}</div>
+            <br>
+            <label>Дата выдачи*</label>
+            <input type="date"
+            required
+
+            @input="saveDatePassport"
+            v-model="datePassport"
+            
+            ><div class='output'>{{statusF}}</div>
+    </form>
+
+        <button  @click = "showModalWindow">Сохранить данные</button>
+        <br><i>* - Поле обязательное для заполнения</i>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.8/dist/vue.js"></script>
+    <script src='app.js'></script>
+</body>
+</html>
